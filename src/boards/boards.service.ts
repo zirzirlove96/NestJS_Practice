@@ -1,3 +1,4 @@
+import { CreateBoardDto } from './dto/create-board.dto';
 import { Injectable } from '@nestjs/common';
 import { BoardStatus, Boards } from './boards.model';
 import { v1 as uuid } from 'uuid';
@@ -17,16 +18,20 @@ export class BoardsService {
     return this.boards;
   }
 
-  createBoard(title: string, description: string) {
+  createBoard(createDtto: CreateBoardDto) {
     const board: Boards = {
       id: uuid(),
-      title: title,
-      description: description,
+      title: createDtto.title,
+      description: createDtto.description,
       status: BoardStatus.PUBLIC,
     }; //게시판 생성
 
     this.boards.push(board);
 
     return board;
+  }
+
+  getIdBoard(id: string): Boards[] {
+    return this.boards[id];
   }
 }
