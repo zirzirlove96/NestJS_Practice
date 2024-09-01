@@ -8,7 +8,7 @@ import { NOTFOUND } from 'dns';
 export class BoardsService {
   private boards: Boards[] = [
     {
-      id: 'asdasd',
+      id: '1',
       title: 'asdasd',
       description: 'asdqwdas',
       status: BoardStatus.PRIVATE,
@@ -55,5 +55,13 @@ export class BoardsService {
     const board = this.getIdBoard(id);
     board.status = status;
     return board;
+  }
+
+  deleteBoard(id: string): Boards[] {
+    const found = this.getIdBoard(id);
+
+    this.boards.filter((i) => i.id !== found.id);
+
+    return this.boards;
   }
 }

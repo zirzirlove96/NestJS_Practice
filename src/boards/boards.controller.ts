@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { BoardsService } from './boards.service';
 import { CreateBoardDto } from './dto/create-board.dto';
+import { BoardstatusValidationPipe } from './pipe/board-status-validation.pipe';
 
 @Controller('boards')
 export class BoardsController {
@@ -37,10 +38,11 @@ export class BoardsController {
     return this.boardsService.removeIdBoard(id);
   }
 
+  //BoardstatusValidationPipe는 status의 유효성을 체크하기 위해 사용
   @Patch('/:id/status')
   public updatStatusBoard(
     @Param('id') id: string,
-    @Body('status') status: BoardStatus,
+    @Body('status', BoardstatusValidationPipe) status: BoardStatus,
   ): Boards {
     return this.boardsService.updatStatusBoard(id, status);
   }
